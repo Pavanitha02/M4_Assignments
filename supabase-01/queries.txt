@@ -1,0 +1,38 @@
+///create table
+create table students (
+  id serial PRIMARY key,
+    name text NOT NULL,
+    email text UNIQUE NOT NULL,
+    age integer,
+    course text,
+    created_at timestamp DEFAULT current_timestamp
+
+);
+output:
+success:no rows returned 
+////now insert 
+insert into students (name, email, age, course) VALUES
+('Ananya Sharma', 'ananya@gmail.com', 21, 'Computer Science'),
+('Rahul Verma', 'rahul@gmail.com', 22, 'Data Science'),
+('Sneha Reddy', 'sneha@gmail.com', 20, 'Computer Science'),
+('Arjun Kumar', 'arjun@gmail.com', 23, 'AI & ML'),
+('Pooja Singh', 'pooja@gmail.com', 19, 'Cyber Security'),
+('Kiran Patel', 'kiran@gmail.com', 24, 'Data Science'),
+('Meena Das', 'meena@gmail.com', 21, 'AI & ML'),
+('Vivek Rao', 'vivek@gmail.com', 18, 'Computer Science');
+
+output:
+insert 0 8
+//select queries
+select * from students;
+select * fromstudents WHERE age > 20;
+select name, email FROM students;
+select * from students WHERE course = 'Computer Science';
+
+-- UPDATE QUERIES
+update students SET age = 22 WHERE id = 1;
+updatestudents SET course = 'Data Analytics' WHERE course = 'Data Science';
+
+-- DELETE QUERIES
+delete FROM students WHERE id = 8;
+delete FROM students WHERE age < 20;
