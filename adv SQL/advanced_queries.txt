@@ -1,0 +1,50 @@
+//count
+select count(*) as total_students
+from students;
+
+//average
+select avg(age) as average_age
+from students;
+
+//min and max
+select 
+    MIN(age) as youngest_student,
+    MAX(age) as oldest_student
+from students;
+///students enrolled in each course
+
+select course,count(*) as student_count
+from students
+group by sourse;
+
+//age> 20
+select count(*) as students_above_20
+FROM students
+where age > 20;
+
+///course wise student count
+select count(*) as total_students
+FROM students
+where age > 20;
+///course where count >1
+select count(*) as students_above_20
+FROM students
+having count(*)>1;
+
+//sorted by highest student count first
+select count(*) as students_above_20
+FROM students
+order by total_students DESC;
+
+////fetch latest 3 students
+select *
+from students
+order by created_at DESC
+LIMIT 3;
+
+
+////fetch top 5 oldest students
+select *
+from students
+order by created_at DESC
+LIMIT 5;
