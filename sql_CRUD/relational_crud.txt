@@ -1,0 +1,72 @@
+-- users table
+create table users(
+  id serial primary key,
+  name text,
+  email text,
+  created_at timestamp default current_timestamp
+);
+-- orders table
+create table orders(
+  id serial primary key,
+  user_id integer references users(id),
+  amount integer,
+  status text,
+  created_at timestamp default current_timestamp
+);
+-- insert users
+insert into users (name, email) values
+('Pavanitha', 'pavi@gmail.com'),
+('Ravi', 'ravi@gmail.com'),
+('Sneha', 'sneha@gmail.com'),
+('Arjun', 'arjun@gmail.com'),
+('Meena', 'meena@gmail.com');
+-- insert orders
+insert into orders (user_id, amount, status) values
+(1, 500, 'Pending'),
+(1, 700, 'Delivered'),
+(2, 300, 'Pending'),
+(2, 200, 'Cancelled'),
+(3, 900, 'Delivered'),
+(3, 400, 'Pending'),
+(3, 600, 'Delivered'),
+(4, 1000, 'Pending'),
+(5, 250, 'Delivered');
+-- fetch users
+select * from users;
+-- fetch orders
+select * from orders;
+
+-- order for specific user
+select & from orders where user_id=1;
+-- more than one order
+select users.name,count(orders.id) as total_orders
+from users
+join orders on users.id=orders.user_id
+group by users.id
+having count(orders.id)>1;
+-- total order amount per user
+select users.name,sum(orders.amount) as total_amount 
+from users
+join orders on users.id=orders.user_id group by users.id
+-- update
+-- email of one user
+update users
+set email='newpavi@gmail.com' where id=1;
+
+-- status of all orders 
+update orders
+set status='delivered' where user_id=2;
+update orders set amout=1200 where id=8;
+-- delete
+-- one order
+delete from orders where id=3;
+-- all orders
+delete from orders where user_id=4;
+-- with existing orders
+delete from users where id=1;
+conceptual question:
+-- Why should orders not be stored inside the users table?
+orders should not be stored inside users table because one 
+user can have multiple orders(one-to-many relationship).
+storing orders inside users would cause data duplication.
+it violates normalization rules.separate tables maintain proper relational database design.
